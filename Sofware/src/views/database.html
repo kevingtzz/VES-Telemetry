@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="assets/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/database.css">
+	<title>Database</title>
+</head>
+
+<body>
+	<header>
+		<h2 class="header">Database</h2>
+	</header>
+	<div class="container">
+		<div class="content">
+			<div id="buttons">
+				<button id="create_btn" class="btn btn-outline-primary">Create Table</button>
+				<button id="start_btn" class="btn btn-outline-secondary disabled">Start storage</button>
+			</div>
+			<div id="table_selected_indicator_wrap">
+				<div class="state_indicator" id="table_selected_indicator"></div>
+				<h4 id="table_selected_text">No table selected.</h4>
+			</div>
+			<div class="table_wraper table-wrapper-scroll-y my-custom-scrollbar">
+				<table class="table table-striped mb-0" id="table_list">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Database Tables</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody id="tbody"></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script src="./js/database.js"></script>
+	<script src="./js/jquery.js"></script>
+	<script src="./js/popper.js"></script>
+	<script src="./js/bootstrap.js"></script>
+</body>
+
+</html>

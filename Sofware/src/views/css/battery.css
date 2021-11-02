@@ -1,0 +1,79 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    text-align: center;
+    background-color: rgb(35, 34, 45);
+    color: rgb(238, 236, 236);
+}
+
+.data_section {
+    height: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+
+}
+
+#soc_section {
+    width: 97%;
+    display: grid;
+    grid-template-columns: 98% 2%;
+}
+
+.second_title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.third_title {
+    display: inline;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 18px;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.data {
+    display: inline;
+}
+
+.value {
+    display: inline;
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 10px;
+    border: solid 1px rgb(209, 209, 209);
+    border-radius: 0px 10px 10px 0px;
+}
+
+.progress {
+    grid-column: 1;
+}
+
+#soc {
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.separator {
+    margin-top: 7px;
+    margin-bottom: 15px;
+    height: 1px;
+    border: solid 1px rgb(177, 177, 177);
+    border-radius: 70%;
+}
+
+#volt_section {
+    margin-top: 5px;
+    height: 60px;
+    width: 100%;
+}
+
+#instantVolt {
+
+}
