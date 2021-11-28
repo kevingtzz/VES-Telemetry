@@ -1,5 +1,6 @@
 const {app, BrowserWindow, Menu, MenuItem, ipcMain} = require('electron');
 const path = require('path');
+const serial = require('./serial');
 
 app.on('ready', () => {
     create_main_window();

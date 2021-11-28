@@ -23,6 +23,10 @@
   },
   "homepage": "https://github.com/kevingtzz/VES-Telemetry-2.0#readme",
   "devDependencies": {
-    "electron": "^15.3.0"
+    "electron": "^15.3.0",
+    "electron-rebuild": "^3.2.5"
+  },
+  "dependencies": {
+    "serialport": "^9.2.7"
   }
 }
