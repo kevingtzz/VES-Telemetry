@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://kit.fontawesome.com/0de8a67811.js"></script>
+    <title>VES Telemetry</title>
+</head>
+
+<body>
+    <div id="map"> </div>
+    <nav>
+        <button id="database_button" title="Database"><i class="fas fa-database"></i></button>
+        <button id="solar_panel" title="Solar Panel"><i class="fas fa-solar-panel"></i></button>
+        <button id="battery" title="Battery"><i class="fas fa-car-battery"></i></button>
+        <button id="engines" title="Engines"><i class="fab fa-galactic-senate"></i></button>
+        <button id="general" title="General"><i class="fab fa-centos"></i></button>
+        <button id="graph" title="Graphics"><i class="fas fa-chart-area"></i></button>
+    </nav>
+    <div class="indicators">
+        <div id="serial_indicator">
+            <span id="serial_txt">Serial</span>
+        </div>
+        <div id="database_indicator">
+            <span id="database_txt">Database</span>
+        </div>
+    </div>
+    <script src="./js/main.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-vX6byxB2IPyM29xCivjv_eiICsIFBpU&callback=initMap">
+        </script>
+</body>
+</body>
+
+</html>

@@ -1,9 +1,12 @@
-const {app, BrowserWindow, Menu, MenuItem, ipcMain} = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
-const serial = require('./serial');
+const serial = require('./src/serial');
+
+let mainWindow = null; 
 
 app.on('ready', () => {
     create_main_window();
+    serial.set_mainWindow(mainWindow);
 });
 
 app.on('activate', () => {
@@ -30,7 +33,8 @@ function create_main_window() {
         width: 1400,
         height: 700,
         webPreferences: {
-            nodeIntegration: true
+            contextIsolation: false,
+            nodeIntegration: true,
         },
         minWidth: 800,
         minHeight: 650,
@@ -145,7 +149,7 @@ function create_main_window() {
     // and load the index.html of the app.
     mainWindow.loadFile(path.join(__dirname, 'src/views/main.html'));
 
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Emitido cuando la ventana es cerrada.
     mainWindow.on('closed', () => {
@@ -153,7 +157,7 @@ function create_main_window() {
         // en un vector si tu aplicación soporta múltiples ventanas, este es el momento
         // en el que deberías borrar el elemento correspondiente.
         mainWindow = null;
-        // serial.set_mainWindow(mainWindow);
+        serial.set_mainWindow(mainWindow);
     });
 
 }

@@ -1,12 +1,13 @@
+const {ipcMain} = require('electron');
 const SerialPort = require('serialport');
 
+let mainWindow = null;
 const connect = setInterval(connect_receiver, 1000);
 
 function connect_receiver() {
     console.log('Scanning ports...');
     SerialPort.list().then(ports => {
         ports.forEach(port => {
-            console.log(port.manufacturer);
             if (port.manufacturer != undefined && port.manufacturer.includes('SparkFun')) { //'SparkFun' id of the Arduino pro micro manufacturer
                 port = new SerialPort(port.path, {
                     baudRate: 9600
@@ -15,6 +16,7 @@ function connect_receiver() {
                 port.on('open', () => {
                     console.log('Serial port opened.');
                     clearInterval(connect);
+                    mainWindow.webContents.send('serial_connected', true);
                 });
 
                 port.on('error', err => {
@@ -26,7 +28,8 @@ function connect_receiver() {
                     data = data.replace(/\r?\n|\r/g, "");
                     data = JSON.stringify(data);
                     data = JSON.parse(data);
-                    console.log(data);
+                    
+                    if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
                 })
 
                 port.on('close', function() {
@@ -37,4 +40,12 @@ function connect_receiver() {
             } 
         });
     });
+}
+
+function set_mainWindow(window) {
+    mainWindow = window;
+}
+
+module.exports = {
+    set_mainWindow,
 }
