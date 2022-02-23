@@ -2,6 +2,9 @@ const {ipcMain} = require('electron');
 const SerialPort = require('serialport');
 
 let mainWindow = null;
+let batteryWindow = null;
+let graphWindows = [];
+let graph_variables = null;
 const connect = setInterval(connect_receiver, 1000);
 
 function connect_receiver() {
@@ -25,11 +28,22 @@ function connect_receiver() {
 
                 port.on('data', data => {
                     data = data.toString();
-                    data = data.replace(/\r?\n|\r/g, "");
-                    data = JSON.stringify(data);
-                    data = JSON.parse(data);
-                    
-                    if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
+                    try {
+                        data = JSON.parse(data);
+                        data['timestamp'] = new Date();
+                        if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
+                        if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
+
+                        graphWindows.forEach(window => {
+                            try {
+                                window.webContents.send('serial_data', data);
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        });
+                    } catch (error) {
+                        // console.log(error);
+                    }
                 })
 
                 port.on('close', function() {
@@ -46,6 +60,16 @@ function set_mainWindow(window) {
     mainWindow = window;
 }
 
+function set_batteryWindow(window) {
+    batteryWindow = window;
+}
+
+function add_graphWindow(window) {
+    graphWindows.push(window);
+}
+
 module.exports = {
     set_mainWindow,
+    set_batteryWindow,
+    add_graphWindow
 }

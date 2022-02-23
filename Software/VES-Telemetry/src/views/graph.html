@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="css/graph.css">
+    <script src="https://kit.fontawesome.com/0de8a67811.js"></script>
+    <title>Graphic</title>
+</head>
+
+<body>
+    <header>
+        <h2 class="header" id="header_title">Graphic</h2>
+    </header>
+    <div id="graph_selection">
+        <div class="dropdown">
+            <button title="variable to chart" class="btn btn-secondary dropdown-toggle btn-block" type="button"
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Variable
+            </button>
+            <div id="dropdown_menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+        </div>
+        <div id="graph_type_wrapper">
+            <button id="line_btn" class="chart_type_button" title="Line chart"><i
+                    class="fas fa-chart-line"></i></button>
+            <button id="area_btn" class="chart_type_button" title="Area chart"><i
+                    class="fas fa-chart-area"></i></button>
+        </div>
+        <div id="start_btn_wrapper">
+            <button type="button" id="start_btn" class="btn btn-secondary btn-block">Start</button>
+        </div>
+    </div>
+    <div id="chart_wrapper">
+        <canvas id="myChart" height="280" width="600"></canvas>
+    </div>
+    <script src="./js/graph.js"></script>
+    <script src="./assets/jquery.slim.min.js"></script>
+    <script src="./assets/jquery.min.js"></script>
+    <script src="./assets/popper.min.js"></script>
+    <script src="./assets/bootstrap.min.js"></script>
+</body>
+
+</html>

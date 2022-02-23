@@ -2,7 +2,7 @@
   "name": "ves-telemetry",
   "version": "2.0.0",
   "description": "VES Desktop telemetry app.",
-  "main": "main.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "electron ."
   },
@@ -27,6 +27,8 @@
     "electron-rebuild": "^3.2.5"
   },
   "dependencies": {
+    "chart.js": "^3.6.2",
+    "mongoose": "^6.2.2",
     "serialport": "^9.2.7"
   }
 }

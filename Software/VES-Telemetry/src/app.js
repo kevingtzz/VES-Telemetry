@@ -1,8 +1,11 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
-const serial = require('./src/serial');
+const serial = require('./serial');
+const database = require('./database');
 
-let mainWindow = null; 
+let mainWindow = null;
+let batteryWindow = null;
+let databaseWindow = null;
 
 app.on('ready', () => {
     create_main_window();
@@ -147,7 +150,7 @@ function create_main_window() {
     Menu.setApplicationMenu(menu);
 
     // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, 'src/views/main.html'));
+    mainWindow.loadFile(path.join(__dirname, '/views/main.html'));
 
     mainWindow.webContents.openDevTools();
 
@@ -159,5 +162,83 @@ function create_main_window() {
         mainWindow = null;
         serial.set_mainWindow(mainWindow);
     });
-
 }
+
+function create_database_window() {
+    databaseWindow = new BrowserWindow({
+        width: 600,
+        height: 380,
+        title: 'Database',
+        webPreferences: {
+            nodeIntegration: true
+        },
+        resizable: false
+    });
+
+    database.set_databaseWindow(databaseWindow);
+    databaseWindow.loadFile(path.join(__dirname, 'views/database.html'));
+
+    databaseWindow.on('closed', () => {
+        databaseWindow = null;
+    })
+}
+
+function create_battery_window() {
+    batteryWindow = new BrowserWindow({
+        width: 600,
+        height: 330,
+        title: 'Batteries',
+        webPreferences: {
+            contextIsolation: false,
+            nodeIntegration: true
+      }
+    });
+
+    serial.set_batteryWindow(batteryWindow);
+    batteryWindow.loadFile(path.join(__dirname, '/views/battery.html'));
+
+    batteryWindow.on('closed', () => {
+        batteryWindow = null;
+        serial.set_batteryWindow(batteryWindow);
+    })
+}
+
+//=================================== Events =====================================//
+
+ipcMain.on('database-click', (event) => {
+    if (databaseWindow === null) {
+        create_database_window();
+    }
+    databaseWindow.webContents.openDevTools();
+});
+
+ipcMain.on('battery-click', (event) => {
+    if (batteryWindow === null) {
+        create_battery_window();
+    }
+    // batteryWindow.webContents.openDevTools();
+});
+
+ipcMain.on('graph-click', (event) => {
+
+    let graphWin = new BrowserWindow({
+        width: 620,
+        height: 360,
+        title: 'Graphic',
+        minWidth: 600,
+        minHeight: 330,
+        webPreferences: {
+            contextIsolation: false,
+            nodeIntegration: true
+      }
+    });
+
+    graphWin.loadFile(path.join(__dirname, '/views/graph.html'));
+
+    serial.add_graphWindow(graphWin);
+    graphWin.webContents.openDevTools();
+
+    graphWin.on('closed', () => {
+        graphWin = null;
+    });
+});
