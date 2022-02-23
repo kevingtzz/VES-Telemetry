@@ -44,17 +44,19 @@ table {
   text-align: center;
 }
 
-td {
-  height: 10px;
-  padding: 0;
+.event_field {
+  display: grid;
+  grid-template-columns: 77% 23%;
 }
 
-.table_name_field {
-  font-size: 1.1rem;
+.event_name_wrapper {
+  display: flex;
+  justify-content: flex-start;
 }
 
-.action_field {
-  text-align: right;
+.event_action_wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .my-custom-scrollbar {

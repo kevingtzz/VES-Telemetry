@@ -170,6 +170,7 @@ function create_database_window() {
         height: 380,
         title: 'Database',
         webPreferences: {
+            contextIsolation: false,
             nodeIntegration: true
         },
         resizable: false

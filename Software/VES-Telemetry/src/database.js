@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const uri = 'mongodb://localhost/kratosdb';
+const {ipcMain} = require('electron');
 const db = mongoose.connection;
+const Event = require('./models/Event');
 
 let databaseWindow = null;
 
@@ -20,6 +22,21 @@ db.on('error', err => {
 function set_databaseWindow(window) {
     databaseWindow = window;
 }
+
+ipcMain.on('create event', (e, name) => {
+    let event = new Event({
+        name,
+        data: []
+    });
+
+    event.save((err, document) => {
+        if (err) console.error(err);
+        if (databaseWindow !== null) databaseWindow.webContents.send('row affected', document);
+        e.reply('table created', name);
+    });
+
+    console.log(event);
+});
 
 module.exports = {
     // insert,

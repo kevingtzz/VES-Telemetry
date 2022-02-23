@@ -10,14 +10,18 @@ const eventSchema = new Schema({
         default: Date.now,
         required: true
     },
-    data: {
+    data: [{
+        date: {
+            type: Date,
+            default: Date.now
+        },
         minVolt: Number,
         maxVolt: Number,
         current: Number,
         instantVolt: Number,
         soc: Number,
         rssi: Number
-    }
+    }]
 });
 
 module.exports = model('Event', eventSchema);
