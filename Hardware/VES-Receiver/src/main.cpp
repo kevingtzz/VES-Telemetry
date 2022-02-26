@@ -41,6 +41,6 @@ void loop() {
       data[index] = LoRa.read();
     }
     set_json(LoRa.packetRssi());
-    Serial.println(json);
+    Serial.write(json);
   }
 }

@@ -31,11 +31,11 @@ header {
   border-radius: 50%;
 }
 
-#table_selected_indicator {
+#event_selected_indicator {
   background-color: rgb(230, 114, 114);
 }
 
-#table_selected_text {
+#event_selected_text {
   display: inline-block;
   font-size: 10px;
 }

@@ -87,7 +87,7 @@ void loop() {
     fill_data_can();
   }
 
-  fill_test_data();
+  //fill_test_data();
 
   current_time = millis();
   if (current_time - final_time > 1000) {

@@ -6,16 +6,16 @@ const dialogs = Dialogs(opts = {
 });
 
 const create_btn = document.getElementById('create_btn');
-// const start_btn = document.getElementById('start_btn');
-// const table_selected_indicator = document.getElementById('table_selected_indicator');
-// const table_selected_text = document.getElementById('table_selected_text');
+const start_btn = document.getElementById('start_btn');
+const event_selected_indicator = document.getElementById('event_selected_indicator');
+const event_selected_text = document.getElementById('event_selected_text');
 // const table_list = document.getElementById('table_list');
 // const tbody = document.getElementById('tbody');
 
-// let table_selected = null;
-// let recording = false;
+let table_selected = null;
+let recording = false;
 
-// // ipcRenderer.send('get tables');
+ipcRenderer.send('get events');
 
 create_btn.addEventListener('click', () => {
     dialogs.prompt('Event name', name => {
@@ -41,52 +41,49 @@ create_btn.addEventListener('click', () => {
 //     }  
 // });
 
-// ipcRenderer.on('data update', (event, data) => {
-//     tables = data[0];
-//     tables.forEach(table => {
-//         create_list_node(table);
-//     });
-//     table_selected = data[1];
-//     recording = data[2];
+ipcRenderer.on('data update', (e, data) => {
+    events = data[0];
+    events.forEach(event => {
+        create_list_node(event);
+    });
+    event_selected = data[1];
+    recording = data[2];
 
-//     if (table_selected !== null) {
-//         table_selected_text.innerHTML = `Table selected: ${table_selected}`;
-//         table_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
-//         start_btn.classList.remove('disabled');
-//         set_start_btn();
-//     }
-// });
+    if (event_selected !== null) {
+        event_selected_text.innerHTML = `Event selected: ${table_selected}`;
+        event_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
+        start_btn.classList.remove('disabled');
+        set_start_btn();
+    }
+});
 
-ipcRenderer.on('table created', (event, event_name) => {
-    dialogs.alert(`${event_name} created successfully.`);
+ipcRenderer.on('event created', (e, event_name) => {
+    dialogs.alert(`${event_name} event created.`);
     create_list_node(event_name);
+    console.log(event_name);
 });
 
-// ipcRenderer.on('table deleted', (event, name) => {
-//     alert(`${name} deleted successfully.`);
-//     tbody.removeChild(document.getElementById(name));
-// });
-
-// ipcRenderer.on('table selected', (event, name) => {
-//     alert(`${name} table has been selected.`);
-//     table_selected = name;
-//     table_selected_text.innerHTML = `Table selected: ${name}`;
-//     table_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
-//     start_btn.classList.remove('disabled');
-//     set_start_btn();
-// });
-
-ipcRenderer.on('row affected', (e, event) => {
-    console.log(event);
+ipcRenderer.on('event deleted', (e, name) => {
+    dialogs.alert(`${name} deleted successfully.`);
+    tbody.removeChild(document.getElementById(name));
 });
 
-// function set_start_btn() {
-//     if (table_selected !== null) {
-//         start_btn.classList.add('active');
-//         start_btn.innerHTML = recording ? 'Stop storage' : 'Start storage'; 
-//         start_btn.className = recording ? "btn btn-outline-danger" : "btn btn-outline-success";
-//     } 
-// }
+ipcRenderer.on('event selected', (e, name) => {
+    dialogs.alert(`${name} event has been selected.`);
+    event_selected = name;
+    event_selected_text.innerHTML = `Event selected: ${name}`;
+    event_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
+    start_btn.classList.remove('disabled');
+    set_start_btn();
+});
+
+function set_start_btn() {
+    if (table_selected !== null) {
+        start_btn.classList.add('active');
+        start_btn.innerHTML = recording ? 'Stop storage' : 'Start storage'; 
+        start_btn.className = recording ? "btn btn-outline-danger" : "btn btn-outline-success";
+    } 
+}
 
 function create_list_node(event_name) {
     let trow = document.createElement('tr');
@@ -118,29 +115,14 @@ function create_list_node(event_name) {
     delete_button.appendChild(delete_button_text);
 
     select_button.addEventListener('click', () => {
-        ipcRenderer.send('table selected', table);
+        ipcRenderer.send('event selected', event_name);
     });
 
-    // delete_button.addEventListener('click', () => {
-    //     prompt({
-    //         title: 'Delete Table',
-    //         label: `Please enter the table name "${table}" to continue`,
-    //         inputAttrs: {
-    //             type: 'text',
-    //             required: true
-    //         },
-    //         type: 'input',
-    //         resizable: true
-    //     })
-    //     .then(input => {
-    //         if (input !== null) {
-    //             if (input === table) {
-    //                 ipcRenderer.send('table deleted', input);
-    //             } else {
-    //                 alert("Name not match");
-    //             }
-    //         }
-    //     })
-    //     .catch(console.error);
-    // });
+    delete_button.addEventListener('click', () => {
+        dialogs.confirm(`Delete ${event_name}`, ok => {
+            if (ok) {
+                ipcRenderer.send('event deleted', event_name);
+            }
+        });
+    });
 }

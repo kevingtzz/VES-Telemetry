@@ -10,6 +10,7 @@ let databaseWindow = null;
 app.on('ready', () => {
     create_main_window();
     serial.set_mainWindow(mainWindow);
+    database.set_mainWindow(mainWindow);
 });
 
 app.on('activate', () => {
