@@ -27,19 +27,19 @@ create_btn.addEventListener('click', () => {
     });
 });
 
-// start_btn.addEventListener('click', () => {
-//     if (table_selected !== null) {
-//         if (!recording) {
-//             recording = true;
-//             ipcRenderer.send('record', recording);
-//             set_start_btn();
-//         } else {
-//             recording = false;
-//             ipcRenderer.send('record', recording);
-//             set_start_btn();
-//         }
-//     }  
-// });
+start_btn.addEventListener('click', () => {
+    if (table_selected !== null) {
+        if (!recording) {
+            recording = true;
+            ipcRenderer.send('record', recording);
+            set_start_btn();
+        } else {
+            recording = false;
+            ipcRenderer.send('record', recording);
+            set_start_btn();
+        }
+    }  
+});
 
 ipcRenderer.on('data update', (e, data) => {
     events = data[0];
@@ -73,15 +73,15 @@ ipcRenderer.on('event selected', (e, name) => {
     event_selected = name;
     event_selected_text.innerHTML = `Event selected: ${name}`;
     event_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
-    start_btn.classList.remove('disabled');
+    start_btn.classList.remove('disabled', 'btn-outline-secondary');
+    // start_btn.classList.remove('btn-outline-secondary');
     set_start_btn();
 });
 
 function set_start_btn() {
-    if (table_selected !== null) {
-        start_btn.classList.add('active');
+    if (event_selected !== null) {
         start_btn.innerHTML = recording ? 'Stop storage' : 'Start storage'; 
-        start_btn.className = recording ? "btn btn-outline-danger" : "btn btn-outline-success";
+        start_btn.classList.add(recording ? "btn-outline-danger" : "btn-outline-success");
     } 
 }
 

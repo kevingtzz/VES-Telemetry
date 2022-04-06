@@ -7,7 +7,7 @@ var graph_button = document.getElementById('graph');
 var serial_indicator = document.getElementById('serial_indicator');
 var database_indicator = document.getElementById('database_indicator');
 var map;
-// var marker = null;
+var marker = null;
 let serial_connection = false;
 
 function initMap() {
@@ -70,25 +70,25 @@ ipcRenderer.on('database_connected', (event, state) => {
 
 ipcRenderer.on('serial_data', (event, data) => {
     console.log(data);
-    // pos = {
-    //     lat: data.latitude,
-    //     lng: data.longitude
-    // }
+    pos = {
+        lat: data.latitude,
+        lng: data.longitude
+    }
 
-    // if (pos.lat != 0  && pos.lng != 0) {
-    //     if (marker == null) {
-    //         marker = new google.maps.Marker({
-    //             animation: google.maps.Animation.DROP,
-    //             position: pos,
-    //             map: map,
-    //             title: 'VES'
-    //         })
-    //     } else {
-    //         marker.setPosition(pos);
-    //         map.setCenter(pos);
-    //         map.setZoom(17);
-    //     }
-    // }
+    if (pos.lat != 0  && pos.lng != 0) {
+        if (marker == null) {
+            marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: pos,
+                map: map,
+                title: 'VES'
+            })
+        } else {
+            marker.setPosition(pos);
+            map.setCenter(pos);
+            map.setZoom(17);
+        }
+    }
     set_serial_indicator(true); //provicional mientras se soluciona el evento close de serialPort
     blink_indicator(true); //true for serial data in, false for database in
 });

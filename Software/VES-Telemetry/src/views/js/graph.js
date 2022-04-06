@@ -13,37 +13,10 @@ const ctx = document.getElementById('myChart').getContext('2d');
 
 var var_selected = null;
 var graph_type_selected = null;
+let variables = [];
 var chart;
 var graph_data = [];
 var labels = [];
-let variables = [
-    'timestamp',
-    'speed',
-    'minVolt',
-    'maxVolt',
-    'current',
-    'instantVolt',
-    'soc'
-];
-
-variables.forEach(element => {
-    if (element !== 'timestamp') {
-        let variable = document.createElement('a');
-        let variable_name = document.createTextNode(element);
-
-        variable.classList.add('dropdown-item');
-        variable.appendChild(variable_name);
-        dropdown_menu.appendChild(variable);
-
-        variable.addEventListener('click', () => {
-            dropdownMenuButton.classList.remove('btn-secondary');
-            dropdownMenuButton.classList.add('btn-primary');
-            dropdownMenuButton.innerHTML = element;
-            var_selected = element;
-            set_start_btn();
-        })
-    }
-});
 
 var speed_gradient = ctx.createLinearGradient(10,10,10,350);
 speed_gradient.addColorStop(0,'rgba(247, 255, 0, 0.5)');
@@ -58,7 +31,29 @@ const var_color_code = {
     'soc': ["rgba(0, 255, 140, 1)", soc_gradient] //BorderColor, background
 }
 
+ipcRenderer.send('get variables');
 
+ipcRenderer.on('variables', (event, vars) => {
+    variables = vars;
+    variables.forEach(element => {
+        if (element !== 'timestamp') {
+            let variable = document.createElement('a');
+            let variable_name = document.createTextNode(element);
+
+            variable.classList.add('dropdown-item');
+            variable.appendChild(variable_name);
+            dropdown_menu.appendChild(variable);
+
+            variable.addEventListener('click', () => {
+                dropdownMenuButton.classList.remove('btn-secondary');
+                dropdownMenuButton.classList.add('btn-primary');
+                dropdownMenuButton.innerHTML = element;
+                var_selected = element;
+                set_start_btn();
+            })
+        }
+    });
+});
 
 line_btn.addEventListener('click', () => {
     graph_type_selected = 'line';

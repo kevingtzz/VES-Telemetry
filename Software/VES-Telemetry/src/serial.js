@@ -1,5 +1,6 @@
 const {ipcMain} = require('electron');
 const SerialPort = require('serialport');
+const { dataToJson } = require('./parser.js');
 
 let mainWindow = null;
 let batteryWindow = null;
@@ -26,11 +27,11 @@ function connect_receiver() {
                     console.log('Error: ', err.message);
                 });
 
-                port.on('data', data => {
-                    data = data.toString();
+                port.on('readable', () => {
+                    buffer = port.read();
+                    bufferArray = [...buffer];
+                    data = dataToJson(bufferArray);
                     try {
-                        data = JSON.parse(data);
-                        data['timestamp'] = new Date();
                         if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
                         if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
 
@@ -42,9 +43,30 @@ function connect_receiver() {
                             }
                         });
                     } catch (error) {
-                        // console.log(error);
+                        console.log(error);
                     }
-                })
+                });
+
+                // port.on('data', data => {
+                //     data = data.toString();
+                //     try {
+                //         console.log(data)
+                //         // data = JSON.parse(data);
+                //         // data['timestamp'] = new Date();
+                //         // if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
+                //         // if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
+
+                //         // graphWindows.forEach(window => {
+                //         //     try {
+                //         //         window.webContents.send('serial_data', data);
+                //         //     } catch (error) {
+                //         //         console.log(error);
+                //         //     }
+                //         // });
+                //     } catch (error) {
+                //         // console.log(error);
+                //     }
+                // })
 
                 port.on('close', function() {
                     console.log('Serial port closed.');
