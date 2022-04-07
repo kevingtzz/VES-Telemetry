@@ -63,10 +63,9 @@ ipcRenderer.on('database_connected', (event, state) => {
     set_database_indicator(state);
 });
 
-// ipcRenderer.on('database insert', (event) => {
-//     blink_indicator(false);
-//     console.log('row');
-// });
+ipcRenderer.on('database insert', (event) => {
+    blink_indicator(false);
+});
 
 ipcRenderer.on('serial_data', (event, data) => {
     console.log(data);

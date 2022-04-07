@@ -1,6 +1,7 @@
 const {ipcMain} = require('electron');
 const SerialPort = require('serialport');
 const { dataToJson } = require('./parser.js');
+const database = require('./database');
 
 let mainWindow = null;
 let batteryWindow = null;
@@ -34,14 +35,15 @@ function connect_receiver() {
                     try {
                         if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
                         if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
+                        if (database.getRecordingState()) database.insert(data);
 
-                        graphWindows.forEach(window => {
-                            try {
-                                window.webContents.send('serial_data', data);
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        });
+                        // graphWindows.forEach(window => {
+                        //     try {
+                        //         window.webContents.send('serial_data', data);
+                        //     } catch (error) {
+                        //         console.log(error);
+                        //     }
+                        // });
                     } catch (error) {
                         console.log(error);
                     }

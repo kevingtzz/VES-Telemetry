@@ -28,7 +28,7 @@ create_btn.addEventListener('click', () => {
 });
 
 start_btn.addEventListener('click', () => {
-    if (table_selected !== null) {
+    if (event_selected !== null) {
         if (!recording) {
             recording = true;
             ipcRenderer.send('record', recording);
@@ -50,7 +50,7 @@ ipcRenderer.on('data update', (e, data) => {
     recording = data[2];
 
     if (event_selected !== null) {
-        event_selected_text.innerHTML = `Event selected: ${table_selected}`;
+        event_selected_text.innerHTML = `Event selected: ${event_selected}`;
         event_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
         start_btn.classList.remove('disabled');
         set_start_btn();
@@ -74,14 +74,24 @@ ipcRenderer.on('event selected', (e, name) => {
     event_selected_text.innerHTML = `Event selected: ${name}`;
     event_selected_indicator.style.backgroundColor = 'rgb(86, 209, 82)';
     start_btn.classList.remove('disabled', 'btn-outline-secondary');
-    // start_btn.classList.remove('btn-outline-secondary');
     set_start_btn();
+});
+
+ipcRenderer.on('row affected', (event, res) => {
+    console.log(res);
 });
 
 function set_start_btn() {
     if (event_selected !== null) {
-        start_btn.innerHTML = recording ? 'Stop storage' : 'Start storage'; 
-        start_btn.classList.add(recording ? "btn-outline-danger" : "btn-outline-success");
+        if (recording) {
+            start_btn.innerHTML = 'Stop storage';
+            start_btn.classList.remove("btn-outline-success");
+            start_btn.classList.add("btn-outline-danger");
+        } else {
+            start_btn.innerHTML = 'Start storage';
+            start_btn.classList.remove("btn-outline-danger");
+            start_btn.classList.add("btn-outline-success");
+        }
     } 
 }
 

@@ -6,23 +6,7 @@ const eventSchema = new Schema({
         required: true,
         unique: true
     },
-    date: {
-        type: Date,
-        default: Date.now,
-        required: true
-    },
-    data: [{
-        date: {
-            type: Date,
-            default: Date.now
-        },
-        minVolt: Number,
-        maxVolt: Number,
-        current: Number,
-        instantVolt: Number,
-        soc: Number,
-        rssi: Number
-    }]
+    data: [{}]
 });
 
 module.exports = model('Event', eventSchema);

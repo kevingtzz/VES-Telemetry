@@ -48,9 +48,30 @@ async function findEvents() {
     return events;
 }
 
+async function findEventSelected(name) {
+    return await Event.findOne({name});
+}
+
 async function findEventToDelete(event_name) {
     let response = await Event.findOneAndDelete({ name: event_name });
     return response;
+}
+
+function getRecordingState() {
+    return recording;
+}
+
+async function insert(data) {
+    try {
+        let res = await Event.updateOne(
+            {name: event_selected.name}, 
+            { $push: {data} });
+
+        if (databaseWindow !== null) databaseWindow.webContents.send('row affected', res);
+        if (mainWindow !== null) mainWindow.webContents.send('database insert', res);
+    } catch (error) {
+       console.log(error); 
+    }
 }
 
 // ====================== IPC events ======================//
@@ -60,7 +81,7 @@ ipcMain.on('get events', e => {
         .then(events => {
             let data = [
                 events.map(event => event.name),
-                event_selected,
+                event_selected ? event_selected.name : null,
                 recording
             ];
             e.reply('data update', data);
@@ -79,9 +100,12 @@ ipcMain.on('create event', (e, name) => {
 });
 
 ipcMain.on('event selected', (e, event_name) => {
-    event_selected = event_name;
-    if (mainWindow !== null) mainWindow.webContents.send('database_connected', true); // Activates database indicatos on main window
-    e.reply('event selected', event_name);
+    findEventSelected(event_name)
+        .then(event => {
+            event_selected = event;
+            if (mainWindow !== null) mainWindow.webContents.send('database_connected', true); // Activates database indicatos on main window
+            e.reply('event selected', event.name);
+        })
 });
 
 ipcMain.on('event deleted', (e, event_name) => {
@@ -92,9 +116,13 @@ ipcMain.on('event deleted', (e, event_name) => {
         .catch(err => console.error(err));
 });
 
+ipcMain.on('record', (event, state) => {
+    recording = state;
+});
+
 module.exports = {
-    // insert,
-    // get_recording_state,
+    insert,
+    getRecordingState,
     set_databaseWindow,
     set_mainWindow
 }
