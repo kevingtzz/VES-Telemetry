@@ -66,12 +66,18 @@ async function insert(data) {
         let res = await Event.updateOne(
             {name: event_selected.name}, 
             { $push: {data} });
+        
+        event_selected = await Event.findOne({name: event_selected.name});
 
         if (databaseWindow !== null) databaseWindow.webContents.send('row affected', res);
         if (mainWindow !== null) mainWindow.webContents.send('database insert', res);
     } catch (error) {
        console.log(error); 
     }
+}
+
+async function updateEventSelected() {
+
 }
 
 // ====================== IPC events ======================//
@@ -87,6 +93,14 @@ ipcMain.on('get events', e => {
             e.reply('data update', data);
         })
         .catch(err => console.error(err));
+});
+
+ipcMain.on('get database data', (e, variable) => {
+    if (event_selected) {
+        data = event_selected.data;
+        data = data.map(element => [element['timestamp'], element[variable]])
+        e.reply('database data', data);
+    }
 });
 
 ipcMain.on('create event', (e, name) => {

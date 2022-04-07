@@ -2,7 +2,6 @@ const { ipcMain } = require('electron');
 
 ipcMain.on('get variables', (event) => {
     let variables = [
-        'timestamp',
         'speed',
         'minVolt',
         'maxVolt',

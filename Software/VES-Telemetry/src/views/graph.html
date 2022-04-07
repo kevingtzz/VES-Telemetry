@@ -15,24 +15,9 @@
         <h2 class="header" id="header_title">Graphic</h2>
     </header>
     <div id="graph_selection">
-        <div class="dropdown">
-            <button title="variable to chart" class="btn btn-secondary dropdown-toggle btn-block" type="button"
-                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Variable
-            </button>
-            <div id="dropdown_menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
-        </div>
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Variables</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected>Choose a variable to chart</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
+        <select class="form-select" id="variable-select" onchange="selectVariable(this)" aria-label="Default select example">
+            <option selected>Variable to chart...</option>
+        </select>
         <div id="graph_type_wrapper">
             <button id="line_btn" class="chart_type_button" title="Line chart"><i
                     class="fas fa-chart-line"></i></button>
@@ -40,17 +25,14 @@
                     class="fas fa-chart-area"></i></button>
         </div>
         <div id="start_btn_wrapper">
-            <button type="button" id="start_btn" class="btn btn-secondary btn-block">Start</button>
+            <button type="button" id="start_btn" class="btn btn-secondary btn-block disabled">Start</button>
         </div>
     </div>
     <div id="chart_wrapper">
         <canvas id="myChart" height="280" width="600"></canvas>
     </div>
     <script src="./js/graph.js"></script>
-    <script src="./js/utils/jquery.slim.min.js"></script>
-    <!-- <script src="./js/utils/jquery.min.js"></script> -->
-    <script src="./js/utils/popper.min.js"></script>
-    <script src="./js/utils/bootstrap.min.js"></script>
+    <script src="./js/utils/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
