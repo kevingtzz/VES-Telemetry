@@ -7530,14 +7530,14 @@ D = Direct mounting &lt;p&gt;
 </classes>
 <parts>
 <part name="B1" library="SparkFun-Boards" library_urn="urn:adsk.eagle:library:509" deviceset="ARDUINO_UNO_R3_SHIELD_ICSP" device="-NO_LABELS" package3d_urn="urn:adsk.eagle:package:37336/1"/>
-<part name="R10" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:26079/1"/>
-<part name="LORA_STATUS_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIP-LED0805" package3d_urn="urn:adsk.eagle:package:15818/1"/>
+<part name="R10" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:26079/1" value="100"/>
+<part name="LORA_STATUS_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIP-LED0805" package3d_urn="urn:adsk.eagle:package:15818/1" value="BLUE"/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:26079/1"/>
-<part name="MCP_STATUS_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIP-LED0805" package3d_urn="urn:adsk.eagle:package:15818/1"/>
+<part name="R1" library="resistor" library_urn="urn:adsk.eagle:library:348" deviceset="R-US_" device="M0805" package3d_urn="urn:adsk.eagle:package:26079/1" value="150"/>
+<part name="MCP_STATUS_LED" library="led" library_urn="urn:adsk.eagle:library:259" deviceset="LED" device="CHIP-LED0805" package3d_urn="urn:adsk.eagle:package:15818/1" value="RED"/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
@@ -7548,7 +7548,7 @@ D = Direct mounting &lt;p&gt;
 <part name="GND7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="SPI" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-05-PIN" device="-LONG-PAD"/>
 <part name="X3" library="Rembrandt Electronics - JST XH Connectors v1-0" deviceset="JST-XH-05-PIN" device="-LONG-PAD"/>
-<part name="X4" library="con-subd" library_urn="urn:adsk.eagle:library:189" deviceset="F09" device="H" package3d_urn="urn:adsk.eagle:package:10276/1"/>
+<part name="X4" library="con-subd" library_urn="urn:adsk.eagle:library:189" deviceset="F09" device="H" package3d_urn="urn:adsk.eagle:package:10276/1" value="DV9"/>
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="MCP2515" library="EL_POTENCIA_LIBRERIA_VES2018" deviceset="MCP2515" device=""/>
 <part name="LORA_RA-02" library="LORA_RA-02_MODULE" deviceset="LORA_RA-02_MODULE" device=""/>
@@ -7564,11 +7564,10 @@ D = Direct mounting &lt;p&gt;
 </instance>
 <instance part="R10" gate="G$1" x="13.97" y="30.48" smashed="yes">
 <attribute name="NAME" x="11.43" y="26.8986" size="1.778" layer="95"/>
-<attribute name="VALUE" x="10.16" y="27.178" size="1.778" layer="96"/>
+<attribute name="VALUE" x="16.764" y="26.924" size="1.778" layer="96"/>
 </instance>
 <instance part="LORA_STATUS_LED" gate="G$1" x="-2.54" y="30.48" smashed="yes" rot="R90">
 <attribute name="NAME" x="-3.302" y="33.274" size="1.778" layer="95"/>
-<attribute name="VALUE" x="2.032" y="36.195" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="GND1" gate="1" x="-66.04" y="-2.54" smashed="yes" rot="R270">
 <attribute name="VALUE" x="-68.58" y="0" size="1.778" layer="96" rot="R270"/>
@@ -7584,11 +7583,11 @@ D = Direct mounting &lt;p&gt;
 </instance>
 <instance part="R1" gate="G$1" x="13.97" y="20.32" smashed="yes">
 <attribute name="NAME" x="11.43" y="16.7386" size="1.778" layer="95"/>
-<attribute name="VALUE" x="10.16" y="17.018" size="1.778" layer="96"/>
+<attribute name="VALUE" x="15.748" y="16.764" size="1.778" layer="96"/>
 </instance>
 <instance part="MCP_STATUS_LED" gate="G$1" x="-2.54" y="20.32" smashed="yes" rot="R90">
 <attribute name="NAME" x="-3.302" y="23.114" size="1.778" layer="95"/>
-<attribute name="VALUE" x="2.032" y="26.035" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="25.146" y="25.019" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="GND5" gate="1" x="29.21" y="20.32" smashed="yes" rot="R90">
 <attribute name="VALUE" x="31.75" y="17.78" size="1.778" layer="96" rot="R90"/>
@@ -7699,14 +7698,14 @@ D = Direct mounting &lt;p&gt;
 </net>
 <net name="MCP_CS" class="0">
 <segment>
-<pinref part="B1" gate="G$1" pin="D8"/>
-<wire x1="-29.21" y1="7.62" x2="-25.4" y2="7.62" width="0.1524" layer="91"/>
-<label x="-25.4" y="7.62" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
 <pinref part="MCP2515" gate="G$1" pin="CS"/>
 <wire x1="53.34" y1="-35.56" x2="55.88" y2="-35.56" width="0.1524" layer="91"/>
 <label x="55.88" y="-35.56" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="B1" gate="G$1" pin="*D10"/>
+<wire x1="-29.21" y1="2.54" x2="-27.94" y2="2.54" width="0.1524" layer="91"/>
+<label x="-27.94" y="2.54" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -7999,14 +7998,14 @@ D = Direct mounting &lt;p&gt;
 </net>
 <net name="LORA_NSS" class="0">
 <segment>
-<pinref part="B1" gate="G$1" pin="*D10"/>
-<wire x1="-29.21" y1="2.54" x2="-27.94" y2="2.54" width="0.1524" layer="91"/>
-<label x="-27.94" y="2.54" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
 <pinref part="LORA_RA-02" gate="G$1" pin="NSS"/>
 <wire x1="58.42" y1="2.54" x2="60.96" y2="2.54" width="0.1524" layer="91"/>
 <label x="60.96" y="2.54" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="B1" gate="G$1" pin="D8"/>
+<wire x1="-29.21" y1="7.62" x2="-27.94" y2="7.62" width="0.1524" layer="91"/>
+<label x="-27.94" y="7.62" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="VIN_12V" class="0">
