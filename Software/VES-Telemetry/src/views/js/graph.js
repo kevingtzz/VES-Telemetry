@@ -34,12 +34,32 @@ var maxVolt_gradient = ctx.createLinearGradient(10,10,10,350);
 maxVolt_gradient.addColorStop(0,'rgba(247, 255, 0, 0.5)');
 maxVolt_gradient.addColorStop(1,'rgba(247, 255, 0, 0.0)');
 
+var current_gradient= ctx.createLinearGradient(10,10,10,350);
+current_gradient.addColorStop(0,'rgba(255, 127, 0, 0.5)');
+current_gradient.addColorStop(1,'rgba(255, 127, 0, 0.0)');
+
+var instantVolt_gradient= ctx.createLinearGradient(10,10,10,350);
+instantVolt_gradient.addColorStop(0,'rgba(255, 127, 0, 0.5)');
+instantVolt_gradient.addColorStop(1,'rgba(255, 127, 0, 0.0)');
+
+var maxTemp_gradient= ctx.createLinearGradient(10,10,10,350);
+maxTemp_gradient.addColorStop(0,'rgba(255, 127, 0, 0.5)');
+maxTemp_gradient.addColorStop(1,'rgba(255, 127, 0, 0.0)');
+
+var minTemp_gradient= ctx.createLinearGradient(10,10,10,350);
+minTemp_gradient.addColorStop(0,'rgba(255, 127, 0, 0.5)');
+minTemp_gradient.addColorStop(1,'rgba(255, 127, 0, 0.0)');
+
 
 const var_color_code = {
     'speed': ['rgba(232, 239, 20, 1)', speed_gradient],
     'soc': ["rgba(0, 255, 140, 1)", soc_gradient], //BorderColor, background
     'minVolt': ['rgba(232, 239, 20, 1)', minVolt_gradient],
     'maxVolt': ['rgba(232, 239, 20, 1)', maxVolt_gradient],
+    'current': ['rgba(255, 127, 20, 1)', current_gradient],
+    'instantVolt': ['rgba(255, 0, 0, 1)', instantVolt_gradient],
+    'maxTemp': ['rgba(255, 0, 0, 1)', maxTemp_gradient],
+    'minTemp': ['rgba(255, 0, 0, 1)', minTemp_gradient],
 }
 
 chart = new Chart(ctx, {
@@ -123,6 +143,7 @@ function set_start_btn() {
 
             ipcRenderer.on('serial data', (event, data) => {
                 addData(chart, `${data.timestamp.getHours()}:${data.timestamp.getMinutes()}:${data.timestamp.getSeconds()}`, data[var_selected]);
+                header.innerHTML = data[var_selected];
             });
 
             function addData(chart, label, data) {

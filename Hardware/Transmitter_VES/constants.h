@@ -13,10 +13,13 @@
 
 #define SERIAL_BAUD_RATE 9600
 #define GPS_BAUD_RATE 9600
-#define DATA_LENGTH 18
+#define DATA_LENGTH 26
+#define FRAME_LENGTH DATA_LENGTH + 3
 
 //========================== Mesh settings ========================//
 
-#define TRANSMITTER_ADDRESS 1
-#define COORDINATOR_ADDRESS 2
-#define RECEIVER_ADDRESS 3
+#define LORA_FREQUENCY 433E6
+#define TRANSMITTER_ADDRESS 0x1
+#define COORDINATOR_ADDRESS 0x2
+#define RECEIVER_ADDRESS 0x3
+#define NETWORK_ID 0x7

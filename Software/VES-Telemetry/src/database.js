@@ -3,6 +3,7 @@ const uri = 'mongodb://localhost/kratosdb';
 const {ipcMain} = require('electron');
 const db = mongoose.connection;
 const Event = require('./models/Event');
+const axios = require('axios').default;
 
 let databaseWindow = null;
 let mainWindow = null;
@@ -63,6 +64,14 @@ function getRecordingState() {
 
 async function insert(data) {
     try {
+        axios.post('https://g30df274e6fc615-kratosdb.adb.us-ashburn-1.oraclecloudapps.com/ords/kratos/kratos_db/', data)
+        .then(function (response) {
+            console.log(response);
+            console.log(data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
         let res = await Event.updateOne(
             {name: event_selected.name}, 
             { $push: {data} });

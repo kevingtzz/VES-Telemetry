@@ -27,6 +27,7 @@
     "electron-rebuild": "^3.2.5"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "chart.js": "^3.6.2",
     "dialogs": "^2.0.1",
     "electron-osx-prompt": "^1.4.1",

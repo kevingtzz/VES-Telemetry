@@ -1,6 +1,6 @@
 const {ipcMain} = require('electron');
 const SerialPort = require('serialport');
-const { dataToJson } = require('./parser.js');
+const { dataToJson, parseTwoBytes } = require('./parser.js');
 const database = require('./database');
 
 let mainWindow = null;
@@ -33,17 +33,19 @@ function connect_receiver() {
                     bufferArray = [...buffer];
                     data = dataToJson(bufferArray);
                     try {
-                        if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
-                        if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
-                        if (database.getRecordingState()) database.insert(data);
-
-                        graphWindows.forEach(window => {
-                            try {
-                                window.webContents.send('serial data', data);
-                            } catch (error) {
-                                // console.log(error);
-                            }
-                        });
+                        if (bufferArray[12] <= 100 || ((parseTwoBytes(bufferArray[2], bufferArray[3])/1000) <= 4.5 )) { // this is a countermessure for the corrupted data. once the data will cleaned by hardware this conditional must be deleted.
+                            if (mainWindow !== null) mainWindow.webContents.send('serial_data', data);
+                            if (batteryWindow !== null) batteryWindow.webContents.send('serial_data', data);
+                            if (database.getRecordingState()) database.insert(data);
+    
+                            graphWindows.forEach(window => {
+                                try {
+                                    window.webContents.send('serial data', data);
+                                } catch (error) {
+                                    // console.log(error);
+                                }
+                            });
+                        }
                     } catch (error) {
                         console.log(error);
                     }

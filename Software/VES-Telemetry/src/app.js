@@ -218,7 +218,7 @@ ipcMain.on('battery-click', (event) => {
     if (batteryWindow === null) {
         create_battery_window();
     }
-    // batteryWindow.webContents.openDevTools();
+    batteryWindow.webContents.openDevTools();
 });
 
 ipcMain.on('graph-click', (event) => {
